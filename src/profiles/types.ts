@@ -1,18 +1,26 @@
+// src/profiles/types.ts
 export interface MCPClientProfile {
   id: string;
   description: string;
 
-  /**
-   * Default server command to run if the user does not provide one.
-   * Example: "node ./node_modules/@mcp/server-web/dist/server.js"
-   */
-  defaultCommand: string;
+  server: {
+    kind: "builtin" | "external";
+    command: string;
+    autoInstall?: boolean;
+    package?: string;
+  };
 
-  /**
-   * Plugins to activate for this profile.
-   * (forwarded to the server via config / env later)
-   */
-  plugins: MCPProfilePlugin[];
+  plugins: {
+    name: string;
+    entry: string;
+  }[];
+
+  ui?: {
+    enabled: boolean;
+    hint?: string;
+  };
+
+  notes?: string[];
 }
 
 export interface MCPProfilePlugin {
